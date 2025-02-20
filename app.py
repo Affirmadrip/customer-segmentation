@@ -33,18 +33,11 @@ cluster_info = data.groupby('Cluster').agg({
 }).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout
-st.title('Customer Segmentation Analysis')
+st.title('Customer Segmentation Based on Shopping Trends')
 
 # Data Overview
 st.header("Data Overview")
 st.dataframe(data)
-
-# Sidebar for input
-st.sidebar.title("Customer Profile Analysis")
-customer_id = st.sidebar.number_input("Customer ID", min_value=1, max_value=int(data['Customer ID'].max()), value=1)
-gender = st.sidebar.radio("Gender", ['Male', 'Female'])
-age = st.sidebar.number_input("Age", min_value=18, max_value=100, step=1)
-analyze_button = st.sidebar.button("Analyze Customer")
 
 # Cluster Overview
 st.header("Cluster Overview")

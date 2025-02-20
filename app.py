@@ -39,6 +39,21 @@ st.title('Customer Segmentation Based on Shopping Trends')
 st.header("Data Overview")
 st.dataframe(data)
 
+# Sidebar for input - existing customer analysis
+st.sidebar.title("Customer Profile Analysis")
+customer_id = st.sidebar.number_input("Enter Customer ID", min_value=int(data['Customer ID'].min()), max_value=int(data['Customer ID'].max()), step=1)
+analyze_button = st.sidebar.button("Analyze Customer")
+
+if analyze_button:
+    customer_data = data[data['Customer ID'] == customer_id]
+    if not customer_data.empty:
+        st.sidebar.write("Customer Details:")
+        st.sidebar.write(customer_data[['Gender', 'Age', 'Category']])
+        cluster_number = customer_data.iloc[0]['Cluster']
+        st.sidebar.write(f"This customer belongs to Cluster {cluster_number}.")
+    else:
+        st.sidebar.write("No customer found with this ID.")
+
 # Cluster Overview
 st.header("Cluster Overview")
 for i in range(4):

@@ -1,18 +1,17 @@
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
-import numpy as np
 
 # Load data
 data = pd.read_csv('shopping_trends.csv')
 
-# Data preprocessing for clustering
+# Preprocessing for clustering
 numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
 categorical_features = ['Gender', 'Category']
-
 numerical_transformer = StandardScaler()
 categorical_transformer = OneHotEncoder()
 
@@ -38,7 +37,14 @@ st.title('Customer Segmentation Analysis')
 
 # Data Overview
 st.header("Data Overview")
-st.dataframe(data)  # Allows user to scroll through the data
+st.dataframe(data)
+
+# Sidebar for input
+st.sidebar.title("Customer Profile Analysis")
+customer_id = st.sidebar.number_input("Customer ID", min_value=1, max_value=int(data['Customer ID'].max()), value=1)
+gender = st.sidebar.radio("Gender", ['Male', 'Female'])
+age = st.sidebar.number_input("Age", min_value=18, max_value=100, step=1)
+analyze_button = st.sidebar.button("Analyze Customer")
 
 # Cluster Overview
 st.header("Cluster Overview")
@@ -51,5 +57,6 @@ for i in range(4):
 
     # Gender distribution within the cluster
     gender_count = data[data['Cluster'] == i]['Gender'].value_counts()
-    fig = sns.barplot(x=gender_count.index, y=gender_count.values)
+    fig, ax = plt.subplots()
+    sns.barplot(x=gender_count.index, y=gender_count.values, ax=ax)
     st.pyplot(fig)

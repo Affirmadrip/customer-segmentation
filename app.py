@@ -11,7 +11,7 @@ data = pd.read_csv('shopping_trends.csv')
 
 # Preprocessing for clustering
 numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
-categorical_features = ['Gender', 'Category']
+categorical_features = ['Gender', 'Category', 'Item Purchased']
 numerical_transformer = StandardScaler()
 categorical_transformer = OneHotEncoder()
 
@@ -28,8 +28,10 @@ data['Cluster'] = kmeans.fit_predict(data_processed)
 # Calculate cluster metrics
 cluster_info = data.groupby('Cluster').agg({
     'Age': 'mean',
-    'Gender': lambda x: (x == 'Male').mean(),
-    'Customer ID': 'size'
+    'Purchase Amount (USD)': 'mean',
+    'Previous Purchases': 'mean',
+    'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
+    'Customer ID': 'size'  # Cluster size
 }).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout
@@ -38,6 +40,22 @@ st.title('Customer Segmentation Based on Shopping Trends')
 # Data Overview
 st.header("Data Overview")
 st.dataframe(data)
+
+# Cluster Overview with detailed metrics
+st.header("Cluster Overview")
+for i in range(4):
+    st.subheader(f"Cluster {i}")
+    cluster_metrics = cluster_info.loc[i]
+    st.write(cluster_metrics)
+
+    # Optional: Most common items or categories for each cluster
+    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
+    st.write("Most Commonly Purchased Items:")
+    st.write(common_items)
+
+    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
+    st.write("Most Common Categories:")
+    st.write(common_categories)
 
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")
@@ -53,18 +71,3 @@ if analyze_button:
         st.sidebar.write(f"This customer belongs to Cluster {cluster_number}.")
     else:
         st.sidebar.write("No customer found with this ID.")
-
-# Cluster Overview
-st.header("Cluster Overview")
-for i in range(4):
-    st.subheader(f"Cluster {i}")
-    cluster_subset = cluster_info.loc[i]
-    st.write(f"Average Age: {cluster_subset['Average Age']:.2f}")
-    st.write(f"Percentage Male: {cluster_subset['Percentage Male'] * 100:.2f}%")
-    st.write(f"Cluster Size: {cluster_subset['Cluster Size']}")
-
-    # Gender distribution within the cluster
-    gender_count = data[data['Cluster'] == i]['Gender'].value_counts()
-    fig, ax = plt.subplots()
-    sns.barplot(x=gender_count.index, y=gender_count.values, ax=ax)
-    st.pyplot(fig)

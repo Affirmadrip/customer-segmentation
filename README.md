@@ -1,1 +1,1 @@
-# customer-segmentation
+# Yes, we are doing customer segmentation  🤓

@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
 #pear
+#Gim
 # Load data
 data = pd.read_csv('shopping_trends.csv')
 

@@ -47,19 +47,19 @@ st.subheader("Cluster 0")
 cluster_0_metrics = cluster_info.loc[0]
 st.write(cluster_0_metrics)
 
-# รายการสินค้าที่พบบ่อย
+# Most Commonly Purchased Item
 common_items_0 = data[data['Cluster'] == 0]['Item Purchased'].value_counts().head(5)
 st.write("Most Commonly Purchased Items:")
 st.write(common_items_0)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of dress
 st.image("https://zapaka.com/cdn/shop/products/04033012-Purplefirst.jpg?v=1628925127", caption="Dress", use_container_width=True)
 
 common_categories_0 = data[data['Cluster'] == 0]['Category'].value_counts().head(5)
 st.write("Most Common Categories:")
 st.write(common_categories_0)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of clothing
 st.image("https://www.thoughtco.com/thmb/ctxxtfGGeK5f_-S3f8J-jbY-Gp8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/close-up-of-clothes-hanging-in-row-739240657-5a78b11f8e1b6e003715c0ec.jpg", caption="Clothing", use_container_width=True)
 
 # --- Cluster 1 ---
@@ -71,14 +71,14 @@ common_items_1 = data[data['Cluster'] == 1]['Item Purchased'].value_counts().hea
 st.write("Most Commonly Purchased Items:")
 st.write(common_items_1)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of jewelry
 st.image("https://www.buccellati.com/media/catalog/category/1_High_Jewelry.jpg", caption="Jewelry", use_container_width=True)
 
 common_categories_1 = data[data['Cluster'] == 1]['Category'].value_counts().head(5)
 st.write("Most Common Categories:")
 st.write(common_categories_1)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of clothing
 st.image("https://www.bigissuenorth.com/wp-content/uploads/2019/05/lyc-campaigns-1600_0_bigissuenorth.jpg", caption="Clothing", use_container_width=True)
 
 # --- Cluster 2 ---
@@ -90,14 +90,14 @@ common_items_2 = data[data['Cluster'] == 2]['Item Purchased'].value_counts().hea
 st.write("Most Commonly Purchased Items:")
 st.write(common_items_2)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of belt
 st.image("https://wildrhinoshoes.com.au/cdn/shop/files/Belts_1.jpg?v=1708316630", caption="Belt", use_container_width=True)
 
 common_categories_2 = data[data['Cluster'] == 2]['Category'].value_counts().head(5)
 st.write("Most Common Categories:")
 st.write(common_categories_2)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of clothing
 st.image("https://images.theconversation.com/files/580726/original/file-20240308-20-2hk7h6.jpg?ixlib=rb-4.1.0&rect=0%2C167%2C5314%2C2653&q=45&auto=format&w=1356&h=668&fit=crop", caption="Clothing", use_container_width=True)
 
 # --- Cluster 3 ---
@@ -109,14 +109,14 @@ common_items_3 = data[data['Cluster'] == 3]['Item Purchased'].value_counts().hea
 st.write("Most Commonly Purchased Items:")
 st.write(common_items_3)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of shirt
 st.image("https://www.mrporter.com/variants/images/1647597332681244/pr/w1000.jpg", caption="Shirt", use_container_width=True)
 
 common_categories_3 = data[data['Cluster'] == 3]['Category'].value_counts().head(5)
 st.write("Most Common Categories:")
 st.write(common_categories_3)
 
-# แสดงพื้นที่สำหรับเพิ่มภาพ
+# An image of clothing
 st.image("https://www.permanentstyle.com/wp-content/uploads/2021/04/hang-up-vintage-london-580x464.jpg", caption="Clothing", use_container_width=True)
 
 # Sidebar for input - existing customer analysis

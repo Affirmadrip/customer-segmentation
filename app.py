@@ -38,9 +38,10 @@ cluster_info = data.groupby('Cluster').agg({
 st.title('Customer Segmentation Based on Shopping Trends')
 
 # Data Overview
-st.header("Cluster Overview")
+st.header("Data Overview")
 st.dataframe(data)
 
+st.header("Cluster Overview")
 # --- Cluster 0 ---
 st.subheader("Cluster 0")
 cluster_0_metrics = cluster_info.loc[0]

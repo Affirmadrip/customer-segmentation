@@ -122,8 +122,8 @@ st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age")
 purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount(USD)")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases")
-frequency_purchases_inp = st.sidebar.number_input("Input Frequency of purchases")
-submit_button = st.sidebar.button("submit")
+frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases")
+submit_button = st.sidebar.button("Submit")
 
 '''
 if submit_button: 

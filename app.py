@@ -127,14 +127,13 @@ previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases")
 submit_button = st.sidebar.button("Submit")
 
-'''
-if submit_button: 
-    customer_data = data[data['Customer ID'] == customer_id]
-    if not customer_data.empty:
-        st.sidebar.write("Customer Details:")
-        st.sidebar.write(customer_data[['Gender', 'Age', 'Category']])
-        cluster_number = customer_data.iloc[0]['Cluster']
-        st.sidebar.write(f"This customer belongs to Cluster {cluster_number}.")
-    else:
-        st.sidebar.write("No customer found with this ID.")
-'''
+
+# if submit_button: 
+#     customer_data = data[data['Customer ID'] == customer_id]
+#     if not customer_data.empty:
+#         st.sidebar.write("Customer Details:")
+#         st.sidebar.write(customer_data[['Gender', 'Age', 'Category']])
+#         cluster_number = customer_data.iloc[0]['Cluster']
+#         st.sidebar.write(f"This customer belongs to Cluster {cluster_number}.")
+#     else:
+#         st.sidebar.write("No customer found with this ID.")

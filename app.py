@@ -39,6 +39,7 @@ st.title('Customer Segmentation Based on Shopping Trends')
 
 # Data Overview
 st.header("Cluster Overview")
+st.dataframe(data)
 
 # --- Cluster 0 ---
 st.subheader("Cluster 0")

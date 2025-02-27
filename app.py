@@ -28,8 +28,8 @@ cluster_info = data.groupby('Cluster').agg({
     'Age': 'mean',
     'Purchase Amount (USD)': 'mean',
     'Previous Purchases': 'mean',
-    'Gender': lambda x: (x == 'Male').mean(),
-    'Customer ID': 'size'
+    'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
+    'Customer ID': 'size'  # Cluster size
 }).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout
@@ -46,18 +46,28 @@ for i in range(4):
     st.write(cluster_metrics)
 
     # Most Commonly Purchased Items
-    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(1)  # Get top item
+    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
     st.write("Most Commonly Purchased Items:")
     st.write(common_items.to_frame())
-    top_item = common_items.index[0].replace(' ', '_').lower() + '.png'  # Assuming image naming follows a pattern
-    st.image(f"images/{top_item}", caption=top_item, use_container_width=True)
 
     # Most Common Categories
-    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(1)  # Get top category
+    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
     st.write("Most Common Categories:")
     st.write(common_categories.to_frame())
-    top_category = common_categories.index[0].replace(' ', '_').lower() + '.png'  # Assuming image naming follows a pattern
-    st.image(f"images/{top_category}", caption=top_category, use_container_width=True)
+
+    # Display images for the top item and category
+    if i == 0:
+        st.image("images/dress.png", caption="Dress", use_container_width=True)
+        st.image("images/clothing_a.png", caption="Clothing", use_container_width=True)
+    elif i == 1:
+        st.image("images/jewelry.png", caption="Jewelry", use_container_width=True)
+        st.image("images/clothing_b.png", caption="Clothing", use_container_width=True)
+    elif i == 2:
+        st.image("images/belt.png", caption="Belt", use_container_width=True)
+        st.image("images/clothing_c.png", caption="Clothing", use_container_width=True)
+    elif i == 3:
+        st.image("images/shirt.png", caption="Shirt", use_container_width=True)
+        st.image("images/clothing_d.png", caption="Clothing", use_container_width=True)
 
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")

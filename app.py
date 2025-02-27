@@ -28,8 +28,8 @@ cluster_info = data.groupby('Cluster').agg({
     'Age': 'mean',
     'Purchase Amount (USD)': 'mean',
     'Previous Purchases': 'mean',
-    'Gender': lambda x: (x == 'Male').mean(),
-    'Customer ID': 'size'
+    'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
+    'Customer ID': 'size'  # Cluster size
 }).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout
@@ -39,33 +39,33 @@ st.title('Customer Segmentation Based on Shopping Trends')
 st.header("Data Overview")
 st.dataframe(data)
 
-# Cluster Overview with header restored
-st.header("Cluster Overview")
-image_captions = {
-    0: ("Dress", "Clothing A"),
-    1: ("Jewelry", "Clothing B"),
-    2: ("Belt", "Clothing C"),
-    3: ("Shirt", "Clothing D")
+# Image mappings for each cluster
+cluster_images = {
+    0: ("images/dress.png", "images/clothing_a.png"),
+    1: ("images/jewelry.png", "images/clothing_b.png"),
+    2: ("images/belt.png", "images/clothing_c.png"),
+    3: ("images/shirt.png", "images/clothing_d.png")
 }
 
+# Cluster Overview
 for i in range(4):
     st.subheader(f"Cluster {i}")
     cluster_metrics = cluster_info.loc[i]
     st.write(cluster_metrics)
 
     # Most Commonly Purchased Items
-    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(1)
+    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
     st.write("Most Commonly Purchased Items:")
     st.write(common_items.to_frame())
-    item_image = f"images/{common_items.index[0].replace(' ', '_').lower()}.png"
-    st.image(item_image, caption=image_captions[i][0], use_container_width=True)
+    # Display item image
+    st.image(cluster_images[i][0], caption="Most Commonly Purchased Item", use_container_width=True)
 
     # Most Common Categories
-    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(1)
+    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
     st.write("Most Common Categories:")
     st.write(common_categories.to_frame())
-    category_image = f"images/{common_categories.index[0].replace(' ', '_').lower()}.png"
-    st.image(category_image, caption=image_captions[i][1], use_container_width=True)
+    # Display category image
+    st.image(cluster_images[i][1], caption="Most Common Category", use_container_width=True)
 
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")

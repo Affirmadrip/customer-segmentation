@@ -45,7 +45,17 @@ for i in range(4):
     cluster_metrics = cluster_info.loc[i]
     st.write(cluster_metrics)
 
-    # Adjust paths to your local image directory structure
+    # Most Commonly Purchased Items
+    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
+    st.write("Most Commonly Purchased Items:")
+    st.write(common_items.to_frame())
+
+    # Most Common Categories
+    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
+    st.write("Most Common Categories:")
+    st.write(common_categories.to_frame())
+
+    # Display images for the top item and category
     if i == 0:
         st.image("images/dress.png", caption="Dress", use_container_width=True)
         st.image("images/clothing_a.png", caption="Clothing", use_container_width=True)
@@ -62,7 +72,7 @@ for i in range(4):
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age")
-purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)")
+purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount(USD)")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases")
 submit_button = st.sidebar.button("Submit")

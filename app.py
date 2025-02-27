@@ -39,6 +39,14 @@ st.title('Customer Segmentation Based on Shopping Trends')
 st.header("Data Overview")
 st.dataframe(data)
 
+# Image mappings for each cluster
+cluster_images = {
+    0: ("images/dress.png", "images/clothing_a.png"),
+    1: ("images/jewelry.png", "images/clothing_b.png"),
+    2: ("images/belt.png", "images/clothing_c.png"),
+    3: ("images/shirt.png", "images/clothing_d.png")
+}
+
 # Cluster Overview
 for i in range(4):
     st.subheader(f"Cluster {i}")
@@ -49,25 +57,15 @@ for i in range(4):
     common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
     st.write("Most Commonly Purchased Items:")
     st.write(common_items.to_frame())
+    # Display item image
+    st.image(cluster_images[i][0], caption="Most Commonly Purchased Item", use_container_width=True)
 
     # Most Common Categories
     common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
     st.write("Most Common Categories:")
     st.write(common_categories.to_frame())
-
-    # Display images for the top item and category
-    if i == 0:
-        st.image("images/dress.png", caption="Dress", use_container_width=True)
-        st.image("images/clothing_a.png", caption="Clothing", use_container_width=True)
-    elif i == 1:
-        st.image("images/jewelry.png", caption="Jewelry", use_container_width=True)
-        st.image("images/clothing_b.png", caption="Clothing", use_container_width=True)
-    elif i == 2:
-        st.image("images/belt.png", caption="Belt", use_container_width=True)
-        st.image("images/clothing_c.png", caption="Clothing", use_container_width=True)
-    elif i == 3:
-        st.image("images/shirt.png", caption="Shirt", use_container_width=True)
-        st.image("images/clothing_d.png", caption="Clothing", use_container_width=True)
+    # Display category image
+    st.image(cluster_images[i][1], caption="Most Common Category", use_container_width=True)
 
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")

@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
@@ -41,99 +39,30 @@ st.title('Customer Segmentation Based on Shopping Trends')
 st.header("Data Overview")
 st.dataframe(data)
 
-st.header("Cluster Overview")
-# --- Cluster 0 ---
-st.subheader("Cluster 0")
-cluster_0_metrics = cluster_info.loc[0]
-st.write(cluster_0_metrics)
+# Cluster Overview
+for i in range(4):
+    st.subheader(f"Cluster {i}")
+    cluster_metrics = cluster_info.loc[i]
+    st.write(cluster_metrics)
 
-# Most Commonly Purchased Item
-common_items_0 = data[data['Cluster'] == 0]['Item Purchased'].value_counts().head(5)
-st.write("Most Commonly Purchased Items:")
-st.write(common_items_0)
-
-# An image of dress
-st.image("https://zapaka.com/cdn/shop/products/04033012-Purplefirst.jpg?v=1628925127", caption="Dress", use_container_width=True)
-
-common_categories_0 = data[data['Cluster'] == 0]['Category'].value_counts().head(5)
-st.write("Most Common Categories:")
-st.write(common_categories_0)
-
-# An image of clothing
-st.image("https://www.thoughtco.com/thmb/ctxxtfGGeK5f_-S3f8J-jbY-Gp8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/close-up-of-clothes-hanging-in-row-739240657-5a78b11f8e1b6e003715c0ec.jpg", caption="Clothing", use_container_width=True)
-
-# --- Cluster 1 ---
-st.subheader("Cluster 1")
-cluster_1_metrics = cluster_info.loc[1]
-st.write(cluster_1_metrics)
-
-common_items_1 = data[data['Cluster'] == 1]['Item Purchased'].value_counts().head(5)
-st.write("Most Commonly Purchased Items:")
-st.write(common_items_1)
-
-# An image of jewelry
-st.image("https://www.buccellati.com/media/catalog/category/1_High_Jewelry.jpg", caption="Jewelry", use_container_width=True)
-
-common_categories_1 = data[data['Cluster'] == 1]['Category'].value_counts().head(5)
-st.write("Most Common Categories:")
-st.write(common_categories_1)
-
-# An image of clothing
-st.image("https://www.bigissuenorth.com/wp-content/uploads/2019/05/lyc-campaigns-1600_0_bigissuenorth.jpg", caption="Clothing", use_container_width=True)
-
-# --- Cluster 2 ---
-st.subheader("Cluster 2")
-cluster_2_metrics = cluster_info.loc[2]
-st.write(cluster_2_metrics)
-
-common_items_2 = data[data['Cluster'] == 2]['Item Purchased'].value_counts().head(5)
-st.write("Most Commonly Purchased Items:")
-st.write(common_items_2)
-
-# An image of belt
-st.image("https://wildrhinoshoes.com.au/cdn/shop/files/Belts_1.jpg?v=1708316630", caption="Belt", use_container_width=True)
-
-common_categories_2 = data[data['Cluster'] == 2]['Category'].value_counts().head(5)
-st.write("Most Common Categories:")
-st.write(common_categories_2)
-
-# An image of clothing
-st.image("https://images.theconversation.com/files/580726/original/file-20240308-20-2hk7h6.jpg?ixlib=rb-4.1.0&rect=0%2C167%2C5314%2C2653&q=45&auto=format&w=1356&h=668&fit=crop", caption="Clothing", use_container_width=True)
-
-# --- Cluster 3 ---
-st.subheader("Cluster 3")
-cluster_3_metrics = cluster_info.loc[3]
-st.write(cluster_3_metrics)
-
-common_items_3 = data[data['Cluster'] == 3]['Item Purchased'].value_counts().head(5)
-st.write("Most Commonly Purchased Items:")
-st.write(common_items_3)
-
-# An image of shirt
-st.image("https://www.mrporter.com/variants/images/1647597332681244/pr/w1000.jpg", caption="Shirt", use_container_width=True)
-
-common_categories_3 = data[data['Cluster'] == 3]['Category'].value_counts().head(5)
-st.write("Most Common Categories:")
-st.write(common_categories_3)
-
-# An image of clothing
-st.image("https://www.permanentstyle.com/wp-content/uploads/2021/04/hang-up-vintage-london-580x464.jpg", caption="Clothing", use_container_width=True)
+    # Adjust paths to your local image directory structure
+    if i == 0:
+        st.image("images/dress.png", caption="Dress", use_container_width=True)
+        st.image("images/clothing_a.png", caption="Clothing", use_container_width=True)
+    elif i == 1:
+        st.image("images/jewelry.png", caption="Jewelry", use_container_width=True)
+        st.image("images/clothing_b.png", caption="Clothing", use_container_width=True)
+    elif i == 2:
+        st.image("images/belt.png", caption="Belt", use_container_width=True)
+        st.image("images/clothing_c.png", caption="Clothing", use_container_width=True)
+    elif i == 3:
+        st.image("images/shirt.png", caption="Shirt", use_container_width=True)
+        st.image("images/clothing_d.png", caption="Clothing", use_container_width=True)
 
 # Sidebar for input - existing customer analysis
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age")
-purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount(USD)")
+purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases")
 submit_button = st.sidebar.button("Submit")
-
-
-# if submit_button: 
-#     customer_data = data[data['Customer ID'] == customer_id]
-#     if not customer_data.empty:
-#         st.sidebar.write("Customer Details:")
-#         st.sidebar.write(customer_data[['Gender', 'Age', 'Category']])
-#         cluster_number = customer_data.iloc[0]['Cluster']
-#         st.sidebar.write(f"This customer belongs to Cluster {cluster_number}.")
-#     else:
-#         st.sidebar.write("No customer found with this ID.")

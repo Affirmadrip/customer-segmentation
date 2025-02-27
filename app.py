@@ -34,20 +34,18 @@ cluster_info = data.groupby('Cluster').agg({
 
 # Streamlit layout
 st.title('Customer Segmentation Based on Shopping Trends')
-
-# Data Overview
 st.header("Data Overview")
 st.dataframe(data)
 
-# Image mappings for each cluster
-cluster_images = {
-    0: ("images/dress.png", "images/clothing_a.png"),
-    1: ("images/jewelry.png", "images/clothing_b.png"),
-    2: ("images/belt.png", "images/clothing_c.png"),
-    3: ("images/shirt.png", "images/clothing_d.png")
+# Image and caption mappings
+image_info = {
+    0: [("images/dress.png", "Dress"), ("images/clothing_a.png", "Clothing A")],
+    1: [("images/jewelry.png", "Jewelry"), ("images/clothing_b.png", "Clothing B")],
+    2: [("images/belt.png", "Belt"), ("images/clothing_c.png", "Clothing C")],
+    3: [("images/shirt.png", "Shirt"), ("images/clothing_d.png", "Clothing D")]
 }
 
-# Cluster Overview
+st.header("Cluster Overview")
 for i in range(4):
     st.subheader(f"Cluster {i}")
     cluster_metrics = cluster_info.loc[i]
@@ -57,17 +55,15 @@ for i in range(4):
     common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
     st.write("Most Commonly Purchased Items:")
     st.write(common_items.to_frame())
-    # Display item image
-    st.image(cluster_images[i][0], caption="Most Commonly Purchased Item", use_container_width=True)
+    st.image(image_info[i][0][0], caption=image_info[i][0][1], use_container_width=True)
 
     # Most Common Categories
     common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
     st.write("Most Common Categories:")
     st.write(common_categories.to_frame())
-    # Display category image
-    st.image(cluster_images[i][1], caption="Most Common Category", use_container_width=True)
+    st.image(image_info[i][1][0], caption=image_info[i][1][1], use_container_width=True)
 
-# Sidebar for input - existing customer analysis
+# Sidebar for customer input
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age")
 purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount(USD)")

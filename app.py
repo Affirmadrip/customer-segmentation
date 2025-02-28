@@ -6,11 +6,11 @@ import numpy as np
 # Load the trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
     preprocessor = pickle.load(f)
-print("Preprocessor parameters:", preprocessor.get_params())  # Print preprocessor parameters
+st.title("Preprocessor parameters:", preprocessor.get_params())  # Print preprocessor parameters
 
 with open('kmeans_model.pkl', 'rb') as f:
     kmeans = pickle.load(f)
-print("KMeans model parameters:", kmeans.get_params())  # Print K-means model parameters
+st.title("KMeans model parameters:", kmeans.get_params())  # Print K-means model parameters
 
 # Load data
 data = pd.read_csv('shopping_trends.csv')

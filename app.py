@@ -65,3 +65,15 @@ if predict_button:
     processed_data = preprocessor.transform(input_data)
     cluster_prediction = kmeans.predict(processed_data)[0]
     st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")
+    st.title("Page 2")
+    st.components.v1.html(
+        """
+        <iframe
+            src="https://page2cluster2.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
+            frameborder="0">
+        </iframe>
+        """,
+        height=450,
+        width=700,
+    )

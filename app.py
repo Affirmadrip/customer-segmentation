@@ -54,7 +54,7 @@ for i in range(4):
 # Sidebar for Customer Input
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age", min_value=0, step=1, format="%d")
-purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0.0, step=0.01, format="%.2f")
+purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0, step=1, format="%d")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases", min_value=0, step=1, format="%d")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases", min_value=0, step=1, format="%d")
 predict_button = st.sidebar.button("Predict")

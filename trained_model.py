@@ -19,12 +19,7 @@ data_processed = preprocessor.fit_transform(numerical_features)
 kmeans = KMeans(n_clusters=4, random_state=42)
 data['Cluster'] = kmeans.fit_predict(data_processed)
 
-# Save the preprocessor and the model to disk
-with open('preprocessor.pkl', 'wb') as f:
-    pickle.dump(preprocessor, f)
 
-with open('kmeans_model.pkl', 'wb') as f:
-    pickle.dump(kmeans, f)
 
 print(preprocessor.get_params())
 

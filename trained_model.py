@@ -27,4 +27,3 @@ with open('kmeans_model.pkl', 'wb') as f:
     pickle.dump(kmeans, f)
 
 print(preprocessor.get_params())
-

@@ -12,39 +12,43 @@ with open('kmeans_model.pkl', 'rb') as f:
 # Load data
 data = pd.read_csv('shopping_trends.csv')
 
-# Cluster Metrics Calculation
-cluster_info = data.groupby('Cluster').agg({
-    'Age': 'mean',
-    'Purchase Amount (USD)': 'mean',
-    'Previous Purchases': 'mean',
-    'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
-    'Customer ID': 'size'  # Cluster size
-}).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
+# Ensure "Cluster" exists
+if 'Cluster' not in data.columns:
+    st.error("Error: 'Cluster' column is missing. Run trained_model.py first.")
+else:
+    # Cluster Metrics Calculation
+    cluster_info = data.groupby('Cluster').agg({
+        'Age': 'mean',
+        'Purchase Amount (USD)': 'mean',
+        'Previous Purchases': 'mean',
+        'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
+        'Customer ID': 'size'  # Cluster size
+    }).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
 
-# Streamlit layout
-st.title('Customer Segmentation Based on Shopping Trends')
-st.header("Data Overview")
-st.dataframe(data)
+    # Streamlit layout
+    st.title('Customer Segmentation Based on Shopping Trends')
+    st.header("Data Overview")
+    st.dataframe(data)
 
-# Image and caption mappings (Updated)
-image_info = {
-    0: [("images/dress0.png", "Dress"), ("images/blouse0.png", "Blouse"), ("images/jewelry0.png", "Jewelry")],
-    1: [("images/jewelry1.png", "Jewelry"), ("images/coat1.png", "Coat"), ("images/jacket1.png", "Jacket")],
-    2: [("images/belt2.png", "Belt"), ("images/skirt2.png", "Skirt"), ("images/gloves2.png", "Gloves")],
-    3: [("images/shirt3.png", "Shirt"), ("images/sunglasses3.png", "Sunglasses"), ("images/pants3.png", "Pants")]
-}
+    # Image and caption mappings (Updated)
+    image_info = {
+        0: [("images/dress0.png", "Dress"), ("images/blouse0.png", "Blouse"), ("images/jewelry0.png", "Jewelry")],
+        1: [("images/jewelry1.png", "Jewelry"), ("images/coat1.png", "Coat"), ("images/jacket1.png", "Jacket")],
+        2: [("images/belt2.png", "Belt"), ("images/skirt2.png", "Skirt"), ("images/gloves2.png", "Gloves")],
+        3: [("images/shirt3.png", "Shirt"), ("images/sunglasses3.png", "Sunglasses"), ("images/pants3.png", "Pants")]
+    }
 
-# Cluster Overview
-st.header("Cluster Overview")
-for i in range(4):
-    st.subheader(f"Cluster {i}")
-    st.dataframe(cluster_info.loc[i].to_frame().T)  # Display as a table
+    # Cluster Overview
+    st.header("Cluster Overview")
+    for i in range(4):
+        st.subheader(f"Cluster {i}")
+        st.dataframe(cluster_info.loc[i].to_frame().T)  # Display as a table
 
-    # Display 3 images per cluster in columns
-    cols = st.columns(3)
-    for idx, (img_path, caption) in enumerate(image_info[i]):
-        with cols[idx]:
-            st.image(img_path, caption=caption, use_container_width=True)
+        # Display 3 images per cluster in columns
+        cols = st.columns(3)
+        for idx, (img_path, caption) in enumerate(image_info[i]):
+            with cols[idx]:
+                st.image(img_path, caption=caption, use_container_width=True)
 
 # Sidebar for Customer Input
 st.sidebar.title("Customer Profile Analysis")

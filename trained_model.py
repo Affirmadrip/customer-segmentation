@@ -7,11 +7,9 @@ import pickle
 # Load data
 data = pd.read_csv('shopping_trends.csv')
 
-# Define the features
+# Preprocessing for clustering
 numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
 categorical_features = ['Gender', 'Category', 'Item Purchased']
-
-# Setup preprocessing steps
 numerical_transformer = StandardScaler()
 categorical_transformer = OneHotEncoder()
 
@@ -21,22 +19,18 @@ preprocessor = ColumnTransformer(
         ('cat', categorical_transformer, categorical_features)
     ])
 
-# Apply preprocessing
+# Fit the preprocessor on the data
 data_processed = preprocessor.fit_transform(data)
 
-# Train the KMeans model
+# Train KMeans model
 kmeans = KMeans(n_clusters=4, random_state=42)
-kmeans.fit(data_processed)
+data['Cluster'] = kmeans.fit_predict(data_processed)
 
-# Print the parameters of the model
-print("KMeans model parameters:", kmeans.get_params())
-
-# Optionally, print preprocessor parameters
-print("Preprocessor parameters:", preprocessor.get_params())
-
-# Save the trained model and preprocessor
+# Save the preprocessor and the model to disk
 with open('preprocessor.pkl', 'wb') as f:
     pickle.dump(preprocessor, f)
 
 with open('kmeans_model.pkl', 'wb') as f:
     pickle.dump(kmeans, f)
+
+print(kmeans.get_params())

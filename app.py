@@ -6,11 +6,8 @@ import numpy as np
 # Load the trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
     preprocessor = pickle.load(f)
-st.title("Preprocessor parameters:", preprocessor.get_params())  # Print preprocessor parameters
-
 with open('kmeans_model.pkl', 'rb') as f:
     kmeans = pickle.load(f)
-st.title("KMeans model parameters:", kmeans.get_params())  # Print K-means model parameters
 
 # Load data
 data = pd.read_csv('shopping_trends.csv')
@@ -57,7 +54,7 @@ for i in range(4):
 # Sidebar for Customer Input
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age", min_value=0, step=1, format="%d")
-purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0, step=1, format="%d")
+purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0.0, step=0.01, format="%.2f")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases", min_value=0, step=1, format="%d")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases", min_value=0, step=1, format="%d")
 predict_button = st.sidebar.button("Predict")

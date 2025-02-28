@@ -9,15 +9,8 @@ data = pd.read_csv('shopping_trends.csv')
 
 # Preprocessing for clustering
 numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
-categorical_features = ['Gender', 'Category', 'Item Purchased']
-numerical_transformer = StandardScaler()
-categorical_transformer = OneHotEncoder()
 
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numerical_transformer, numerical_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
+preprocessor = StandardScaler()
 
 # Fit the preprocessor on the data
 data_processed = preprocessor.fit_transform(data)
@@ -33,4 +26,5 @@ with open('preprocessor.pkl', 'wb') as f:
 with open('kmeans_model.pkl', 'wb') as f:
     pickle.dump(kmeans, f)
 
-print(kmeans.get_params())
+print(preprocessor.get_params())
+

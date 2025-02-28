@@ -1,23 +1,35 @@
 import streamlit as st
 import pandas as pd
 import pickle
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.cluster import KMeans
 
-# Load the preprocessor and model
+# Load the pre-trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
     preprocessor = pickle.load(f)
+
 with open('kmeans_model.pkl', 'rb') as f:
     kmeans = pickle.load(f)
 
-# Streamlit layout
-st.title('Customer Segmentation Based on Shopping Trends')
+# Define numerical features
+numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
 
-# Load data (for display purposes)
+# Load dataset for displaying cluster information
 data = pd.read_csv('shopping_trends.csv')
+
+# Apply clustering to data
 data_processed = preprocessor.transform(data)
 data['Cluster'] = kmeans.predict(data_processed)
+
+# Calculate cluster metrics
+cluster_info = data.groupby('Cluster').agg({
+    'Age': 'mean',
+    'Purchase Amount (USD)': 'mean',
+    'Previous Purchases': 'mean',
+    'Gender': lambda x: (x == 'Male').mean(),  # Percentage Male
+    'Customer ID': 'size'  # Cluster size
+}).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
+
+# Streamlit UI Layout
+st.title('Customer Segmentation Based on Shopping Trends')
 
 st.header("Data Overview")
 st.dataframe(data)
@@ -33,34 +45,41 @@ image_info = {
 st.header("Cluster Overview")
 for i in range(4):
     st.subheader(f"Cluster {i}")
-    cluster_info = data[data['Cluster'] == i].agg({
-        'Age': 'mean',
-        'Purchase Amount (USD)': 'mean',
-        'Previous Purchases': 'mean',
-        'Gender': lambda x: (x == 'Male').mean()  # Percentage Male
-    }).rename({
-        'Age': 'Average Age',
-        'Gender': 'Percentage Male'
-    }).to_dict()
+    cluster_metrics = cluster_info.loc[i]
+    st.dataframe(cluster_metrics.to_frame().T)  # **Fixed table format**
 
-    st.write(cluster_info)
+    # Most Commonly Purchased Items
+    common_items = data[data['Cluster'] == i]['Item Purchased'].value_counts().head(5)
+    st.write("Most Commonly Purchased Items:")
+    st.dataframe(common_items.to_frame())
 
-    # Display images with captions for each cluster
-    for img, caption in image_info[i]:
-        st.image(img, caption=caption, use_container_width=True)
+    st.image(image_info[i][0][0], caption=image_info[i][0][1], use_container_width=True)
 
-# Sidebar for customer input (Example of input handling)
-st.sidebar.title("Customer Profile Analysis")
+    # Most Common Categories
+    common_categories = data[data['Cluster'] == i]['Category'].value_counts().head(5)
+    st.write("Most Common Categories:")
+    st.dataframe(common_categories.to_frame())
+
+    st.image(image_info[i][1][0], caption=image_info[i][1][1], use_container_width=True)
+
+# Sidebar Input
+st.sidebar.title("Customer Profile Prediction")
+
 age_inp = st.sidebar.number_input("Input Age")
 purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)")
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases")
-submit_button = st.sidebar.button("Analyze")
+frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases")  # **Restored input**
+submit_button = st.sidebar.button("Predict")  # **Renamed from "Analyze"**
 
 if submit_button:
-    # Example prediction logic (simplified for this context)
-    # In practice, input features would need to match the model's feature set
-    input_data = pd.DataFrame([[age_inp, purchase_amount_inp, 0, previous_purchase_inp]],
-                              columns=numerical_features)
-    input_processed = preprocessor.transform(input_data)
-    cluster = kmeans.predict(input_processed)
-    st.sidebar.write(f"Predicted Customer Cluster: {cluster[0]}")
+    try:
+        # Prepare input data for prediction
+        input_data = pd.DataFrame([[age_inp, purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp]],
+                                  columns=['Age', 'Purchase Amount (USD)', 'Previous Purchases', 'Review Rating'])
+
+        input_processed = preprocessor.transform(input_data)
+        cluster_prediction = kmeans.predict(input_processed)[0]
+
+        st.sidebar.success(f"The predicted cluster is: {cluster_prediction}")
+    except Exception as e:
+        st.sidebar.error(f"Prediction failed: {e}")

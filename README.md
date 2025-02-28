@@ -1,1 +1,2 @@
-# Yes, we are doing customer segmentation  🤓
+# Customer segmentation  🤓
+We have made it to the first draft.

@@ -19,7 +19,6 @@ preprocessor = ColumnTransformer(
         ('cat', categorical_transformer, categorical_features)
     ])
 
-# Fit preprocessor to data
 data_processed = preprocessor.fit_transform(data)
 
 # Train KMeans

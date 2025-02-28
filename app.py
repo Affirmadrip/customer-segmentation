@@ -54,7 +54,7 @@ for i in range(4):
 # Sidebar for Customer Input
 st.sidebar.title("Customer Profile Analysis")
 age_inp = st.sidebar.number_input("Input Age", min_value=0, step=1, format="%d")
-purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0.0, step=0.01, format="%.2f")
+purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0, step=1, format="%d")  # Changed to integer
 previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases", min_value=0, step=1, format="%d")
 frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases", min_value=0, step=1, format="%d")
 predict_button = st.sidebar.button("Predict")
@@ -64,7 +64,10 @@ if predict_button:
     input_data = pd.DataFrame([[age_inp, purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp]])
     processed_data = preprocessor.transform(input_data)
     cluster_prediction = kmeans.predict(processed_data)[0]
+    
     st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")
+    
+    # Redirect to Page 2
     st.title("Page 2")
     st.components.v1.html(
         """
@@ -77,5 +80,3 @@ if predict_button:
         height=450,
         width=700,
     )
-    
-# 1st Draft

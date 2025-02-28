@@ -62,5 +62,6 @@ predict_button = st.sidebar.button("Predict")
 # Perform Prediction
 if predict_button:
     input_data = pd.DataFrame([[age_inp, purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp]])
-    cluster_prediction = kmeans.predict(input_data)[0]
+    processed_data = preprocessor.transform(input_data)
+    cluster_prediction = kmeans.predict(processed_data)[0]
     st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")

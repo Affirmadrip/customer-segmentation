@@ -8,7 +8,7 @@ import pickle
 data = pd.read_csv('shopping_trends.csv')
 
 # Preprocessing for clustering
-numerical_features = data[['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']]
+numerical_features = data[['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']].copy()
 
 preprocessor = StandardScaler()
 

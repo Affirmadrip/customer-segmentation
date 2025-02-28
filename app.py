@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
+from sklearn.preprocessing import StandardScale
 
 # Load the trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
@@ -62,6 +63,8 @@ predict_button = st.sidebar.button("Predict")
 # Perform Prediction
 if predict_button:
     input_data = np.array([[age_inp, purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp]])
-    input_data_processed = preprocessor.transform(input_data)
+    preprocessor = StandardScaler()
+    # Fit the preprocessor on the data
+    data_processed = preprocessor.fit_transform(input_data)
     cluster_prediction = kmeans.predict(input_data_processed)[0]
     st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")

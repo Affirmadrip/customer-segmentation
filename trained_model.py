@@ -32,3 +32,4 @@ with open('kmeans_model.pkl', 'wb') as f:
 
 # Save the modified data with clusters
 data.to_csv('shopping_trends.csv', index=False)
+*

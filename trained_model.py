@@ -8,12 +8,12 @@ import pickle
 data = pd.read_csv('shopping_trends.csv')
 
 # Preprocessing for clustering
-numerical_features = ['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']
+numerical_features = data[['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']]
 
 preprocessor = StandardScaler()
 
 # Fit the preprocessor on the data
-data_processed = preprocessor.fit_transform(data)
+data_processed = preprocessor.fit_transform(numerical_features)
 
 # Train KMeans model
 kmeans = KMeans(n_clusters=4, random_state=42)

@@ -95,7 +95,7 @@ if st.session_state.page == 'home':
 
 # Page 1
 elif st.session_state.page == 'page1':
-    st.title("Cluster0")
+    st.title("Cluster 0")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
@@ -116,7 +116,7 @@ elif st.session_state.page == 'page1':
 
 # Page 2
 elif st.session_state.page == 'page2':
-    st.title("Cluster1")
+    st.title("Cluster 1")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
@@ -137,7 +137,7 @@ elif st.session_state.page == 'page2':
 
 # Page 3
 elif st.session_state.page == 'page3':
-    st.title("Cluster2")
+    st.title("Cluster 2")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
@@ -158,7 +158,7 @@ elif st.session_state.page == 'page3':
 
 # Page 4
 elif st.session_state.page == 'page4':
-    st.title("Cluster3")
+    st.title("Cluster 3")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(

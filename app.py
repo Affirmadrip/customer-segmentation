@@ -10,7 +10,7 @@ if 'page' not in st.session_state:
 # Function to navigate to home
 def go_home():
     st.session_state.page = 'home'
-    st.experimental_rerun()
+    st.rerun()
 
 # Load the trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
@@ -74,7 +74,7 @@ if st.session_state.page == 'home':
         
         # Redirect to cluster-specific page
         st.session_state.page = f'cluster_{cluster_prediction}'
-        st.experimental_rerun()
+        st.rerun()
 
 # Page for each cluster
 for i in range(4):
@@ -83,7 +83,7 @@ for i in range(4):
         st.dataframe(cluster_info.loc[i].to_frame().T)
         
         cols = st.columns(3)
-        for img_path, caption in image_info[i]:
+        for idx, (img_path, caption) in enumerate(image_info[i]):
             with cols[idx]:
                 st.image(img_path, caption=caption, use_container_width=True)
         

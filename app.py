@@ -10,7 +10,7 @@ if 'page' not in st.session_state:
 # Function to navigate to home
 def go_home():
     st.session_state.page = 'home'
-    st.rerun()  # Force a rerun to refresh to the home page
+
 
 # Load the trained model and preprocessor
 with open('preprocessor.pkl', 'rb') as f:
@@ -25,6 +25,7 @@ data = pd.read_csv('shopping_trends.csv')
 if 'Cluster' not in data.columns:
     st.error("Error: 'Cluster' column is missing. Run trained_model.py first.")
     st.stop()
+
 
 # Calculate cluster metrics
 cluster_info = data.groupby('Cluster').agg({
@@ -79,38 +80,99 @@ if st.session_state.page == 'home':
         st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")
 
         # Navigate to page of cluster prediction
-        st.session_state.page = f'page{cluster_prediction}'
-        st.rerun()  # Refresh the app 
+        if cluster_prediction == 0:
+            st.session_state.page = 'page1'
+            st.rerun()  # Refresh the app 
+        elif cluster_prediction == 1:
+            st.session_state.page = 'page2'
+            st.rerun()  # Refresh the app 
+        elif cluster_prediction == 2:
+            st.session_state.page = 'page3'
+            st.rerun()  # Refresh the app 
+        elif cluster_prediction == 3:
+            st.session_state.page = 'page4'
+            st.rerun()  # Refresh the app 
 
-# Define a function to embed the iframe for each cluster page
-def embed_cluster_page(cluster_url):
+# Page 1
+elif st.session_state.page == 'page1':
+    st.title("Cluster0")
+    
+    # Use st.components.v1.html to render the iframe
     st.components.v1.html(
-        f"""
+        """
         <iframe
-            src="{cluster_url}"
-            style="height: 600px; width: 100%;"
+            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>
         """,
-        height=600,
-        width=800,
+        height=450,  
+        width=700,   
     )
+
+    # Button to go back to Home
     if st.button("Back to Home"):
         go_home()
 
-# Cluster pages
-if st.session_state.page == 'page0':
-    st.title("Cluster 0 - Fashion Essentials")
-    embed_cluster_page("https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app")
-
-elif st.session_state.page == 'page1':
-    st.title("Cluster 1 - Luxury Goods")
-    embed_cluster_page("https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app")
-
+# Page 2
 elif st.session_state.page == 'page2':
-    st.title("Cluster 2 - Outdoor Enthusiasts")
-    embed_cluster_page("https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app")
+    st.title("Cluster1")
+    
+    # Use st.components.v1.html to render the iframe
+    st.components.v1.html(
+        """
+        <iframe
+            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
+            frameborder="0">
+        </iframe>
+        """,
+        height=450,  
+        width=700,   
+    )
+    
+    # Button to go back to Home
+    if st.button("Back to Home"):
+        go_home()
 
+# Page 3
 elif st.session_state.page == 'page3':
-    st.title("Cluster 3 - Tech Savvy")
-    embed_cluster_page("https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app")
+    st.title("Cluster2")
+    
+    # Use st.components.v1.html to render the iframe
+    st.components.v1.html(
+        """
+        <iframe
+            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
+            frameborder="0">
+        </iframe>
+        """,
+        height=450,  
+        width=700,   
+    )
+
+    # Button to go back to Home
+    if st.button("Back to Home"):
+        go_home()
+
+# Page 4
+elif st.session_state.page == 'page4':
+    st.title("Cluster3")
+    
+    # Use st.components.v1.html to render the iframe
+    st.components.v1.html(
+        """
+        <iframe
+            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
+            frameborder="0">
+        </iframe>
+        """,
+        height=450,  
+        width=700,   
+    )
+
+    # Button to go back to Home
+    if st.button("Back to Home"):
+        go_home()

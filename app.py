@@ -95,13 +95,13 @@ if st.session_state.page == 'home':
 
 # Page 1
 elif st.session_state.page == 'page1':
-    st.title("Cluster 0")
+    st.title("Cluster0")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
         """
         <iframe
-            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            src="https://ieny4uefywdpjfyra3zynv.streamlit.app?embed=true"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>
@@ -116,13 +116,13 @@ elif st.session_state.page == 'page1':
 
 # Page 2
 elif st.session_state.page == 'page2':
-    st.title("Cluster 1")
+    st.title("Cluster1")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
         """
         <iframe
-            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            src="https://3ibapx9dzf7okbxscer7dy.streamlit.app?embed=true"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>
@@ -137,13 +137,13 @@ elif st.session_state.page == 'page2':
 
 # Page 3
 elif st.session_state.page == 'page3':
-    st.title("Cluster 2")
+    st.title("Cluster2")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
         """
         <iframe
-            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            src="https://kchuujb7snk3yjvnzj77qm.streamlit.app?embed=true"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>
@@ -158,13 +158,13 @@ elif st.session_state.page == 'page3':
 
 # Page 4
 elif st.session_state.page == 'page4':
-    st.title("Cluster 3")
+    st.title("Cluster3")
     
     # Use st.components.v1.html to render the iframe
     st.components.v1.html(
         """
         <iframe
-            src="https://data-ming-b5odzxw9m6euvzewcznj55.streamlit.app?embed=true"
+            src="https://sdaeqq33tfvf5ziw5e3mqr.streamlit.app?embed=true"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>

@@ -67,7 +67,8 @@ if st.session_state.page == 'home':
     age_inp = st.sidebar.number_input("Input Age", min_value=0, step=1, format="%d")
     purchase_amount_inp = st.sidebar.number_input("Input Purchase Amount (USD)", min_value=0, step=1, format="%d")  # Changed to integer
     previous_purchase_inp = st.sidebar.number_input("Input Previous Purchases", min_value=0, step=1, format="%d")
-    frequency_purchases_inp = st.sidebar.number_input("Input Frequency of Purchases", min_value=0, step=1, format="%d")
+    frequency_purchases_inp = st.selectbox("Select Frequency of Purchases", 
+                         options=['Bi-Weekly', 'Weekly', 'Fortnightly', 'Monthly', 'Every 3 Months', 'Quarterly', 'Annually'])
     predict_button = st.sidebar.button("Predict")
 
     # Perform Prediction

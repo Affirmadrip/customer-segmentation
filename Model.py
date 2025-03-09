@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 from sklearn_extra.cluster import KMedoids  # Import KMedoids from sklearn_extra
+import pickle
 
 df = pd.read_csv('shopping_trends.csv')
 
@@ -46,6 +47,13 @@ for k in range(2, 10):  # ทดลองใช้จำนวนคลัสเ
 print(f"เลือกจำนวนคลัสเตอร์ที่เหมาะสมที่สุด: k = {best_k} (Silhouette Score: {best_score:.3f})")
 
 # 📌 ใช้ KMedoids กับจำนวนคลัสเตอร์ที่เหมาะสม
-kmedoids = KMedoids(n_clusters=best_k,metric="euclidean", random_state=42)
-df['Cluster'] = kmedoids.fit_predict(X_scaled)
+kmedoids_model = KMedoids(n_clusters=best_k,metric="euclidean", random_state=42)
+df['Cluster'] = kmedoids_model.fit_predict(X_scaled)
 
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
+
+with open('Model.pkl', 'wb') as f:
+    pickle.dump(kmedoids_model, f)
+
+print(kmedoids_model.get_params())

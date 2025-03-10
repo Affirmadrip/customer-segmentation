@@ -32,8 +32,13 @@ def spending_score(Purchase, Previous, Frequency):
     w1 = 1/3
     w2 = 1/3
     w3 = 1/3
-    FreqPerYear = Frequency.apply(lambda x: freq_per_year.get(x))
+
+    # Instead of applying the lambda, just directly map the Frequency to its corresponding value
+    FreqPerYear = freq_per_year.get(Frequency, 0)  # Default to 0 if the Frequency isn't found
+
+    # Calculate the spending score
     return w1 * (Purchase / 100) + w2 * (Previous / 50) + w3 * (FreqPerYear / 104)
+
 
 # Load the data
 data = pd.read_csv('shopping_trends.csv')

@@ -180,21 +180,21 @@ elif st.session_state.page == 'page3':
         go_home()
 
 # Page 4
-elif st.session_state.page == 'page4':
-    st.title("Cluster3")
+# elif st.session_state.page == 'page4':
+#     st.title("Cluster3")
     
-    # Use st.components.v1.html to render the iframe
-    st.components.v1.html(
-        """
-        <iframe
-            src="https://sdaeqq33tfvf5ziw5e3mqr.streamlit.app?embed=true"
-            style="height: 450px; width: 100%;"
-            frameborder="0">
-        </iframe>
-        """,
-        height=450,  
-        width=700,   
-    )
+#     # Use st.components.v1.html to render the iframe
+#     st.components.v1.html(
+#         """
+#         <iframe
+#             src="https://sdaeqq33tfvf5ziw5e3mqr.streamlit.app?embed=true"
+#             style="height: 450px; width: 100%;"
+#             frameborder="0">
+#         </iframe>
+#         """,
+#         height=450,  
+#         width=700,   
+#     )
 
     # Button to go back to Home
     if st.button("Back to Home"):

@@ -17,8 +17,7 @@ with open('scaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
 with open('Model.pkl', 'rb') as f:
     model = pickle.load(f)
-# with open('SpendingScore.pkl', 'rb') as f:
-#     SpendingScore = pickle.load(f)
+
 def spending_score(Purchase, Previous, Frequency):
     freq_per_year = {
         'Bi-Weekly': 104,
@@ -54,9 +53,9 @@ cluster_info = data.groupby('Cluster').agg({
     'Age': 'mean',
     'Purchase Amount (USD)': 'mean',
     'Previous Purchases': 'mean',
-    'Gender': lambda x: (x == 'Male').mean(),  # Percentage of Males
+    # 'Gender': lambda x: (x == 'Male').mean(),  # Percentage of Males
     'Customer ID': 'size'  # Cluster size
-}).rename(columns={'Age': 'Average Age', 'Gender': 'Percentage Male', 'Customer ID': 'Cluster Size'})
+}).rename(columns={'Age': 'Average Age', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout for the home page
 if st.session_state.page == 'home':

@@ -123,7 +123,7 @@ elif st.session_state.page == 'page1':
     st.components.v1.html(
         """
         <iframe
-            src="https://ieny4uefywdpjfyra3zynv.streamlit.app?embed=true"
+            src="https://cluster-0-vbkkvdj5ps9pymamu3sjn5.streamlit.app/"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>

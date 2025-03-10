@@ -55,7 +55,7 @@ cluster_info = data.groupby('Cluster').agg({
     'Previous Purchases': 'mean',
     'Spending Score': 'mean',  # Percentage of Males
     'Customer ID': 'size'  # Cluster size
-}).rename(columns={'Age': 'Average Age','Spending Score': 'Spending Score', 'Customer ID': 'Cluster Size'})
+}).rename(columns={'Age': 'Average Age','Purchase Amount (USD)':'Average Purchase Amount (USD)','Previous Purchases': 'Average Previous Purchases','Spending Score': 'Average Spending Score', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout for the home page
 if st.session_state.page == 'home':

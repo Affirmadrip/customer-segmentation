@@ -17,8 +17,23 @@ with open('scaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
 with open('Model.pkl', 'rb') as f:
     model = pickle.load(f)
-with open('SpendingScore.pkl', 'rb') as f:
-    SpendingScore = pickle.load(f)
+# with open('SpendingScore.pkl', 'rb') as f:
+#     SpendingScore = pickle.load(f)
+def spending_score(Purchase, Previous, Frequency):
+    freq_per_year = {
+        'Bi-Weekly': 104,
+        'Weekly': 52,
+        'Fortnightly': 26,
+        'Monthly': 12,
+        'Every 3 Months': 4,
+        'Quarterly': 3,
+        'Annually': 1
+    }
+    w1 = 1/3
+    w2 = 1/3
+    w3 = 1/3
+    FreqPerYear = Frequency.apply(lambda x: freq_per_year.get(x))
+    return w1 * (Purchase / 100) + w2 * (Previous / 50) + w3 * (FreqPerYear / 104)
 
 # Load the data
 data = pd.read_csv('shopping_trends.csv')
@@ -75,7 +90,7 @@ if st.session_state.page == 'home':
 
     # Perform Prediction
     if predict_button:
-        SpendingScore_data = SpendingScore(purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp)
+        SpendingScore_data = spending_score(purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp)
         input_data = pd.DataFrame([[age_inp,SpendingScore_data]])
         processed_data = scaler.transform(input_data)
         cluster_prediction = model.predict(processed_data)[0]

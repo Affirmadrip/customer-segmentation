@@ -111,9 +111,6 @@ if st.session_state.page == 'home':
         elif cluster_prediction == 2:
             st.session_state.page = 'page3'
             st.rerun()  # Refresh the app 
-        elif cluster_prediction == 3:
-            st.session_state.page = 'page4'
-            st.rerun()  # Refresh the app 
 
 # Page 1
 elif st.session_state.page == 'page1':
@@ -165,7 +162,7 @@ elif st.session_state.page == 'page3':
     st.components.v1.html(
         """
         <iframe
-            src="https://cluster-2.streamlit.app/?embed=true"
+            src="https://cluster-2.streamlit.app?embed=true"
             style="height: 450px; width: 100%;"
             frameborder="0">
         </iframe>

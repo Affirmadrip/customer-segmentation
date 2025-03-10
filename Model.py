@@ -1,6 +1,6 @@
 # !pip install scikit-learn-extra
 import pandas as pd
-import numpy as np
+# import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
@@ -50,10 +50,20 @@ print(f"เลือกจำนวนคลัสเตอร์ที่เห
 kmedoids_model = KMedoids(n_clusters=best_k,metric="euclidean", random_state=42)
 df['Cluster'] = kmedoids_model.fit_predict(X_scaled)
 
+def spending_score(Purchase, Previous, Frequency):
+    w1 = 1/3
+    w2 = 1/3
+    w3 = 1/3
+    spending_score = w1*(Purchase/100) + w2*(Previous/50) + w3*(Frequency/104)
+    return spending_score
+    
 with open('scaler.pkl', 'wb') as f:
     pickle.dump(scaler, f)
 
 with open('Model.pkl', 'wb') as f:
     pickle.dump(kmedoids_model, f)
+
+with open('SpendingScore.pkl', 'wb') as f:
+    pickle.dump(spending_score, f)
 
 print(kmedoids_model.get_params())

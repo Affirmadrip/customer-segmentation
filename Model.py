@@ -1,6 +1,5 @@
 # !pip install scikit-learn-extra
-import pandas as pd
-# import numpy as np
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score

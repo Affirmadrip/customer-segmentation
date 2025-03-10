@@ -4,3 +4,4 @@ scikit-learn
 matplotlib
 seaborn
 scikit-learn-extra
+numpy<2

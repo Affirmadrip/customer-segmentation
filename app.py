@@ -53,9 +53,9 @@ cluster_info = data.groupby('Cluster').agg({
     'Age': 'mean',
     'Purchase Amount (USD)': 'mean',
     'Previous Purchases': 'mean',
-    'Spending Score': 'mean',  # Percentage of Males
+    # 'Gender': lambda x: (x == 'Male').mean(),  # Percentage of Males
     'Customer ID': 'size'  # Cluster size
-}).rename(columns={'Age': 'Average Age','Purchase Amount (USD)':'Average Purchase Amount (USD)','Previous Purchases': 'Average Previous Purchases','Spending Score': 'Average Spending Score', 'Customer ID': 'Cluster Size'})
+}).rename(columns={'Age': 'Average Age', 'Customer ID': 'Cluster Size'})
 
 # Streamlit layout for the home page
 if st.session_state.page == 'home':
@@ -65,10 +65,9 @@ if st.session_state.page == 'home':
 
     # Image and caption mappings (Updated)
     image_info = {
-        0: [("images/dress0.png", "Dress"), ("images/blouse0.png", "Blouse"), ("images/jewelry0.png", "Jewelry")],
-        1: [("images/jewelry1.png", "Jewelry"), ("images/coat1.png", "Coat"), ("images/jacket1.png", "Jacket")],
-        2: [("images/belt2.png", "Belt"), ("images/skirt2.png", "Skirt"), ("images/gloves2.png", "Gloves")],
-        # 3: [("images/shirt3.png", "Shirt"), ("images/sunglasses3.png", "Sunglasses"), ("images/pants3.png", "Pants")]
+        0: [("images/shirt.png", "Shirt"), ("images/pants-men.png", "Pants"), ("images/hoodie.png", "Hoodie")],
+        1: [("images/jacket.png", "Jacket"), ("images/handbag-men.png", "Handbag"), ("images/sandals.png", "Sandals")],
+        2: [("images/jewelry.png", "Jewelry"), ("images/sweater.png", "Sweater"), ("images/coat.png", "Coat")],
     }
 
     # Cluster Overview
@@ -180,21 +179,21 @@ elif st.session_state.page == 'page3':
         go_home()
 
 # Page 4
-# elif st.session_state.page == 'page4':
-#     st.title("Cluster3")
+elif st.session_state.page == 'page4':
+    st.title("Cluster3")
     
-#     # Use st.components.v1.html to render the iframe
-#     st.components.v1.html(
-#         """
-#         <iframe
-#             src="https://sdaeqq33tfvf5ziw5e3mqr.streamlit.app?embed=true"
-#             style="height: 450px; width: 100%;"
-#             frameborder="0">
-#         </iframe>
-#         """,
-#         height=450,  
-#         width=700,   
-#     )
+    # Use st.components.v1.html to render the iframe
+    st.components.v1.html(
+        """
+        <iframe
+            src="https://sdaeqq33tfvf5ziw5e3mqr.streamlit.app?embed=true"
+            style="height: 450px; width: 100%;"
+            frameborder="0">
+        </iframe>
+        """,
+        height=450,  
+        width=700,   
+    )
 
     # Button to go back to Home
     if st.button("Back to Home"):

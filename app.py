@@ -40,7 +40,7 @@ def spending_score(Purchase, Previous, Frequency):
 
 
 # Load the data
-data = pd.read_csv('shopping_trends.csv')
+data = pd.read_csv('shopping_trends_cluster.csv')
 
 # Ensure "Cluster" column exists
 if 'Cluster' not in data.columns:

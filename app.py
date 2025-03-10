@@ -13,10 +13,10 @@ def go_home():
 
 
 # Load the trained model and preprocessor
-with open('preprocessor.pkl', 'rb') as f:
-    preprocessor = pickle.load(f)
-with open('kmeans_model.pkl', 'rb') as f:
-    kmeans = pickle.load(f)
+with open('scaler.pkl', 'rb') as f:
+    scaler = pickle.load(f)
+with open('Model.pkl', 'rb') as f:
+    model = pickle.load(f)
 with open('SpendingScore.pkl', 'rb') as f:
     SpendingScore = pickle.load(f)
 
@@ -77,8 +77,8 @@ if st.session_state.page == 'home':
     if predict_button:
         SpendingScore_data = SpendingScore(purchase_amount_inp, previous_purchase_inp, frequency_purchases_inp)
         input_data = pd.DataFrame([[age_inp,SpendingScore_data]])
-        processed_data = preprocessor.transform(input_data)
-        cluster_prediction = kmeans.predict(processed_data)[0]
+        processed_data = scaler.transform(input_data)
+        cluster_prediction = model.predict(processed_data)[0]
 
         # Show predicted cluster result
         st.sidebar.subheader(f"Predicted Cluster: {cluster_prediction}")

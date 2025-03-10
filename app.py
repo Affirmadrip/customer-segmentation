@@ -73,7 +73,7 @@ if st.session_state.page == 'home':
 
     # Cluster Overview
     st.header("Cluster Overview")
-    for i in range(4):
+    for i in range(3):
         st.subheader(f"Cluster {i}")
         st.dataframe(cluster_info.loc[i].to_frame().T)  # Display as a table
 

@@ -49,30 +49,12 @@ print(f"เลือกจำนวนคลัสเตอร์ที่เห
 kmedoids_model = KMedoids(n_clusters=best_k,metric="euclidean", random_state=42)
 df['Cluster'] = kmedoids_model.fit_predict(X_scaled)
 
-def spending_score(Purchase, Previous, Frequency):
-    freq_per_year = {
-    'Bi-Weekly': 104,
-    'Weekly': 52,
-    'Fortnightly': 26,
-    'Monthly': 12,
-    'Every 3 Months': 4,
-    'Quarterly': 3,
-    'Annually': 1
-    }
-    w1 = 1/3
-    w2 = 1/3
-    w3 = 1/3
-    FreqPerYear = Frequency.apply(lambda x: freq_per_year.get(x))
-    spending_score = w1*(Purchase/100) + w2*(Previous/50) + w3*(FreqPerYear/104)
-    return spending_score
+df.to_csv('shopping_trends_cluster.csv', index=False)
     
 with open('scaler.pkl', 'wb') as f:
     pickle.dump(scaler, f)
 
 with open('Model.pkl', 'wb') as f:
     pickle.dump(kmedoids_model, f)
-
-with open('SpendingScore.pkl', 'wb') as f:
-    pickle.dump(spending_score, f)
 
 print(kmedoids_model.get_params())
